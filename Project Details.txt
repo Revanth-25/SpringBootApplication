@@ -1,0 +1,103 @@
+Maven Commands to run and execute project --- >//To Compile---mvn clean compile ---> //To execute---mvn exec:java --->//Tp build/produce jar file---mvn install .
+
+-------------------------------------------------Database(PostgreSQL)----------------------------------------------------------------------------------
+
+          List of relations
+ Schema |  Name   | Type  |  Owner
+--------+---------+-------+----------
+ public | product | table | postgres
+ public | reviews | table | postgres
+(2 rows)
+
+
+shoppingcart=# select*from product;
+
+ prod_id | prod_name |  prod_desc   | prod_price | prod_qty
+---------+-----------+--------------+------------+----------
+    7001 | Close up  | Tooth paste  |         15 |      150
+    7002 | Medimix   | Bathing Soap |         35 |       95
+    7003 | Horlix    | Energy Drink |        140 |       70
+(3 rows)
+
+shoppingcart=# select*from reviews;
+
+ rev_id | prod_id | rating |       re_desc
+--------+---------+--------+----------------------
+   8001 |    7001 |      4 | Nice Paste
+   8002 |    7003 |      5 | Gives Instant Energy
+(2 rows)
+------------------------------------------------------------------------------------------------------------------------------------------------------
+application.properties path ------->  src/main/resources/application.properties
+product view path -------> src/main/java/com/capg/rest/controller/ProductController.java
+
+FETCH ALL PRODUCTS: 
+
+URL (GET method) : http://localhost:8095/product
+Payload: 
+[
+    {
+        "productId": 7001,
+        "productName": "Close up",
+        "productDescription": "Tooth paste",
+        "productPrice": 15.0,
+        "productQuantity": 150
+    },
+    {
+        "productId": 7002,
+        "productName": "Medimix",
+        "productDescription": "Bathing Soap",
+        "productPrice": 35.0,
+        "productQuantity": 95
+    },
+    {
+        "productId": 7003,
+        "productName": "Horlix",
+        "productDescription": "Energy Drink",
+        "productPrice": 140.0,
+        "productQuantity": 70
+    },
+    {
+        "productId": 7004,
+        "productName": "Boost",
+        "productDescription": "secret",
+        "productPrice": 140.0,
+        "productQuantity": 1
+    }
+]
+Response: 200 OK
+
+
+URL (GET method) : 
+
+TO FETCH REVIEWS BASED ON PRODUCT:
+
+URL (GET method) : http://localhost:8095/reviews/product/7003
+Payload: 
+	{
+    		"reviewId": 8002,
+    		"productId": 7003,
+    		"productRating": 5,
+    		"reviewDescription": "Gives Instant Energy",
+    		"productdto": {
+        		"productId": 7003,
+	        	"productName": "Horlix",
+	        	"productDescription": "Energy Drink",
+	        	"productPrice": 140.0,
+	        	"productQuantity": 70
+   		}
+	}
+Response: 200 OK
+
+
+TO ADD A PRODUCT:
+
+URL (POST METHOD) : http://localhost:8095/product
+PAYLOAD:
+	{	
+    		"productId": 7004,
+		"productName": "Boost",
+    		"productDescription": "secret",
+    		"productPrice": 140.0,
+    		"productQuantity": 1
+	}
+Response : 200 OK
